@@ -30,6 +30,7 @@ if $COPY_HYPR; then
   echo "Copying hypr config files..."
   mkdir -p "$HYPR_DIR"
   cp "$RICE_DIR/dotfiles/hypr/"*.conf "$HYPR_DIR/"
+  cp "$RICE_DIR/dotfiles/hypr/dms/"*.conf "$HYPR_DIR/"
   echo "✔ hypr done!"
 fi
 
