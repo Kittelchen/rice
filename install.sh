@@ -20,7 +20,7 @@ for arg in "$@"; do
 done
 
 # if no flags given, copy everything
-if ! $COPY_HYPR && ! $COPY_KITTY; then
+if ! $COPY_HYPR && ! $COPY_KITTY && ! $COPY_FISH; then
   COPY_HYPR=true
   COPY_KITTY=true
   COPY_FISH=true
@@ -30,7 +30,7 @@ if $COPY_HYPR; then
   echo "Copying hypr config files..."
   mkdir -p "$HYPR_DIR"
   cp "$RICE_DIR/dotfiles/hypr/"*.conf "$HYPR_DIR/"
-  cp "$RICE_DIR/dotfiles/hypr/dms/"*.conf "$HYPR_DIR/"
+  #cp "$RICE_DIR/dotfiles/hypr/noctalia/"*.conf "$HYPR_DIR/"
   echo "✔ hypr done!"
 fi
 
