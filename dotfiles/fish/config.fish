@@ -9,8 +9,21 @@ end
 if status is-interactive # Commands to run in interactive sessions can go here
 
     # No greeting
-    set fish_greeting
 
+    set fish_greeting
+    if status is-interactive
+
+    set_color ff5f57;  echo "    /\_____/\\"
+    set_color febc2e;  echo "   /  o   o  \\"
+    set_color 28c840;  echo "  ( ==  ^  == )"
+    set_color 1793d1;  echo "   )         ("
+    set_color c678dd;  echo "  (           )"
+    set_color 2ec4b6;  echo " ( (  )   (  ) )"
+    set_color f4a261;  echo "(__(__)___(__)__)"
+    set_color normal
+
+    end
+    
     # Use starship
     starship init fish | source
     if test -f ~/.local/state/quickshell/user/generated/terminal/sequences.txt
@@ -23,6 +36,7 @@ if status is-interactive # Commands to run in interactive sessions can go here
     alias claer "printf '\033[2J\033[3J\033[1;1H'"
     alias ls 'eza --icons'
     alias pamcan pacman
-    alias q 'qs -c ii'
+    alias q 'qs -c noctalia-shell'
     alias update 'sudo pacman -Syu && yay'
+    alias nuke 'pkill -9 -f'
 end
