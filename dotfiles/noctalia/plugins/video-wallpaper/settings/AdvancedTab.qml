@@ -27,12 +27,14 @@ ColumnLayout {
     // Monitor specific properties
     property string fillMode: pluginApi?.pluginSettings?.[selectedMonitor]?.fillMode    ?? pluginApi?.manifest?.metadata?.defaultSettings?.fill_mode ?? ""
     property int orientation: pluginApi?.pluginSettings?.[selectedMonitor]?.orientation ?? 0
+    property string maxDepthFolder: pluginApi?.pluginSettings?.[selectedMonitor]?.maxDepthFolder ?? pluginApi?.manifest?.metadata?.defaultSettings?.max_depth_folder ?? "1"
 
     // Constants
     readonly property list<string> backends: ["qt6-multimedia", "mpvpaper"]
 
     // Signals
     signal saveMonitorProperty(key: string, value: var);
+    signal saveGlobalProperty(key: string, value: var);
 
 
     /***************************
@@ -63,6 +65,29 @@ ColumnLayout {
         onSelected: key => root.fillMode = key
     }
 
+    NComboBox {
+        enabled: root.enabled
+        Layout.fillWidth: true
+        label:       root.pluginApi?.tr("settings.advanced.max_depth_folder.label")
+        description: root.pluginApi?.tr("settings.advanced.max_depth_folder.description")
+        defaultValue: "1"
+        model: [
+            {
+                "key": "1",
+                "name": root.pluginApi?.tr("settings.advanced.max_depth_folder.1")
+            },
+            {
+                "key": "2",
+                "name": root.pluginApi?.tr("settings.advanced.max_depth_folder.2")
+            },
+            {
+                "key": "3",
+                "name": root.pluginApi?.tr("settings.advanced.max_depth_folder.3")
+            }
+        ]
+        currentKey: root.maxDepthFolder
+        onSelected: key => root.maxDepthFolder = key
+    }
     // Orientation
     NValueSlider {
         property real _value: root.orientation
@@ -136,6 +161,7 @@ ColumnLayout {
         videoWallpaper.saveSettings();
         mpvpaper.saveSettings();
 
+        saveGlobalProperty("maxDepthFolder", maxDepthFolder);
         saveMonitorProperty("fillMode", fillMode);
         saveMonitorProperty("orientation", orientation);
     }

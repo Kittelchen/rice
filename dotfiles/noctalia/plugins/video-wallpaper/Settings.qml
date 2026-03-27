@@ -52,6 +52,22 @@ ColumnLayout {
         }
     }
 
+    function saveGlobalProperty(key: string, value: var): void {
+        function createGlobalSettings(monitor) {
+            // Check if the monitor settings exist and create it if it doesn't exist
+            if (pluginApi.pluginSettings["global"] === undefined) {
+                pluginApi.pluginSettings["global"] = {};
+            }
+        }
+        if(pluginApi == null) {
+            Logger.e("video-wallpaper", "PluginAPI is null.");
+            return;
+        }
+
+        createGlobalSettings();
+        pluginApi.pluginSettings["global"][key] = value;
+    }
+
 
     /***************************
     * COMPONENTS
@@ -207,7 +223,7 @@ ColumnLayout {
             activeBackend: root.activeBackend
             enabled: root.enabled
             selectedMonitor: monitorTabBar.selectedMonitor
-
+            onSaveGlobalProperty: (key, value) => root.saveGlobalProperty(key, value);
             onSaveMonitorProperty: (key, value) => root.saveMonitorProperty(key, value);
         }
     }

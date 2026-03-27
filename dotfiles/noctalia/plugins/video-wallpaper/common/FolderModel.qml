@@ -15,6 +15,7 @@ Item {
     readonly property bool ready: internal.ready
     readonly property list<string> files: internal.files
     readonly property int count: files.length
+    readonly property string maxDepthFolder: pluginApi?.pluginSettings?.["global"]?.maxDepthFolder ?? pluginApi?.manifest?.metadata?.defaultSettings?.max_depth_folder ?? "1"
 
     function reload() {
         if (!proc.running) {
@@ -50,7 +51,7 @@ Item {
         id: proc
 
         readonly property string _command: {
-            let command = `find "${root.folder}" -mindepth 1 -maxdepth 1`
+            let command = `find "${root.folder}" -mindepth 1 -maxdepth ${root.maxDepthFolder} -type f`;
             let filters = []
             for (const filter of root.filters) {
                 filters.push(`-name "${filter}"`);
