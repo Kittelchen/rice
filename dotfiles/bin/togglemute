@@ -1,0 +1,9 @@
+#!/bin/bash
+wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+
+# Check state after toggle
+if wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q '\[MUTED\]'; then
+    paplay --volume=32768 ~/sounds/mic/muted.mp3
+else
+    paplay ~/sounds/mic/activated.mp3
+fi
