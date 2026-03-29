@@ -1,0 +1,17 @@
+#!/bin/bash
+
+USERHASH="XXX"
+
+FOLDER="$HOME/Pictures/Screenshots/$(date +%Y-%m)"
+FILE="screenshot_$(date +%Y%m%d_%H%M%S).png"
+FULL="$FOLDER/$FILE"
+
+mkdir -p "$FOLDER"
+spectacle -r -n -b -o "$FULL" -c
+
+if [ -f "$FULL" ]; then
+    URL=$(curl -sF "reqtype=fileupload" -F "userhash=$USERHASH" -F "fileToUpload=@$FULL" https://catbox.moe/user/api.php)
+    notify-send "Saved & uploaded: $URL" --app-name="Catbox"
+else
+    notify-send "Screenshot cancelled." --app-name="Catbox"
+fi
