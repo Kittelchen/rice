@@ -7,7 +7,15 @@ FILE="screenshot_$(date +%Y%m%d_%H%M%S).png"
 FULL="$FOLDER/$FILE"
 
 mkdir -p "$FOLDER"
-spectacle -r -n -b -o "$FULL" -c
+
+if [ "$XDG_SESSION_DESKTOP" = "KDE" ]; then
+    spectacle -r -n -b -o "$FULL" -c
+elif [ "$XDG_SESSION_DESKTOP" = "Hyprland" ]; then
+    hyprshot -o "$FOLDER" -f "$FILE" -m region
+else
+    notify-send "Unsupported desktop environment." --app-name="Catbox"
+    exit 1
+fi
 
 if [ -f "$FULL" ]; then
     URL=$(curl -sF "reqtype=fileupload" -F "userhash=$USERHASH" -F "fileToUpload=@$FULL" https://catbox.moe/user/api.php)
