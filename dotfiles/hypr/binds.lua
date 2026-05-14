@@ -1,13 +1,13 @@
 --local ipc = "qs -c noctalia-shell ipc call"
 
 -- 1. Noctalia binds
-hl.bind("SUPER + SPACE",     shellexec("launcher toggle"),                  { description = "Launcher" })
-hl.bind("SUPER + S",         shellexec("controlCenter toggle"),             { description = "Control Center" })
-hl.bind("SUPER + comma",     shellexec("settings toggle"),                  { description = "Settings" })
-hl.bind("SUPER + F1",        shellexec("plugin:keybind-cheatsheet toggle"), { description = "Cheatsheet" })
-hl.bind("CTRL + ALT + Delete", shellexec("sessionMenu toggle"),            { description = "Session Menu" })
-hl.bind("SUPER + V",         shellexec("plugin:clipper toggle"),            { description = "Clipboard" })
-hl.bind("SUPER + Tab",       shellexec("plugin:workspace-overview toggle"), { description = "Workspace Overview" })
+shell("SUPER + SPACE",     "launcher toggle",                  "Launcher")
+shell("SUPER + S",         "controlCenter toggle",             "Control Center")
+shell("SUPER + comma",     "settings toggle",                  "Settings")
+shell("SUPER + F1",        "plugin:keybind-cheatsheet toggle", "Cheatsheet")
+shell("CTRL + ALT + Delete","sessionMenu toggle",            "Session Menu")
+shell("SUPER + V",         "plugin:clipper toggle",            "Clipboard")
+shell("SUPER + Tab",       "plugin:workspace-overview toggle", "Workspace Overview")
 
 -- 2. Windows
 hl.bind("SUPER + D",               hl.dsp.window.fullscreen({ mode = "maximized" }),  { description = "Maximize Window" })
@@ -20,7 +20,7 @@ hl.bind("SUPER + mouse:272", hl.dsp.window.drag(),   { mouse = true, description
 hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true, description = "Resize window" })
 
 -- Focus
-hl.bind("SUPER + right", hl.dsp.focus({ direction = "r" }), { description = "Focus next window (right)" })
+hl.bind("SUPER + right", hl.dsp.focus({ direction =  "r" }), { description = "Focus next window (right)" })
 hl.bind("SUPER + left",  hl.dsp.focus({ direction = "l" }), { description = "Focus next window (left)" })
 hl.bind("SUPER + up",    hl.dsp.focus({ direction = "u" }), { description = "Focus next window (up)" })
 hl.bind("SUPER + down",  hl.dsp.focus({ direction = "d" }), { description = "Focus next window (down)" })
@@ -42,7 +42,7 @@ hl.bind("SUPER + code:21",        hl.dsp.window.resize({ x = 100,  y = 0,   rela
 for i = 1, 9 do
     hl.bind("SUPER + " .. i,         hl.dsp.focus({ workspace = i }))
     hl.bind("SUPER + SHIFT + " .. i, hl.dsp.window.move({ workspace = i }))
-    end
+end
     hl.bind("SUPER + SHIFT + I", hl.dsp.window.move({ workspace = "e-1!" }))
 
     -- Numpad workspace binds
@@ -57,7 +57,7 @@ for i = 1, 9 do
     for _, entry in ipairs(numpad) do
         hl.bind("SUPER + " .. entry.key,         hl.dsp.focus({ workspace = entry.ws }),        { description = "Switch to #" .. entry.ws .. " (Numpad)" })
         hl.bind("SUPER + SHIFT + " .. entry.key, hl.dsp.window.move({ workspace = entry.ws }), { description = "Move to #" .. entry.ws .. " (Numpad)" })
-        end
+    end
 
         -- Move focused window to next/previous workspace on same monitor
         hl.bind("SUPER + SHIFT + right", hl.dsp.window.move({ workspace = "m+1" }), { description = "Move window to next workspace on monitor" })
@@ -70,9 +70,10 @@ for i = 1, 9 do
         hl.bind("SUPER + SHIFT + V",   hl.dsp.exec_cmd("pwvucontrol"),   { description = "Volume Control Panel" })
         hl.bind("SUPER + M",           hl.dsp.exec_cmd("togglemute"),    { description = "Toggle Mute" })
 
-        -- Media keys
-        hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd(ipc .. " volume increase"),   { repeating = true })
-        hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd(ipc .. " volume decrease"),   { repeating = true })
-        hl.bind("XF86AudioMute",         hl.dsp.exec_cmd(ipc .. " volume muteOutput"), { repeating = true })
-        hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd(ipc .. " brightness increase"), { repeating = true })
-        hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. " brightness decrease"), { repeating = true })
+-- Media keys
+hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd(ipc .. " volume increase"),   { repeating = true })
+hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd(ipc .. " volume decrease"),   { repeating = true })
+hl.bind("XF86AudioMute",         hl.dsp.exec_cmd(ipc .. " volume muteOutput"), { repeating = true })
+hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd(ipc .. " brightness increase"), { repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. " brightness decrease"), { repeating = true })
+
